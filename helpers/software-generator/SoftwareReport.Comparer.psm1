@@ -25,7 +25,7 @@ class SoftwareReportComparer {
         $currentReportPointer.Children | Where-Object { $_ } | ForEach-Object {
             $currentReportNode = $_
 
-            if ($currentReportNode.GetType().Name -in @("TableNode", "NoteNode")) {
+            if ($currentReportNode.GetType().Name -in @("NoteNode")) {
                 # Ignore TableNode and NoteNode for now
                 # Will implement later
                 return
@@ -79,9 +79,15 @@ class SoftwareReportComparer {
         $sb.AppendLine("## Changed")
         $sb.AppendLine("| Previous | Current | Notes |")
         $sb.AppendLine("| --- | --- | --- |")
-        $this.ChangedNodes | ForEach-Object {
+        $this.ChangedNodes | Where-Object { $_.NewNode.GetType() -ne [TableNode] } | ForEach-Object {
             $headers = ($_.Headers | Select-Object -Skip 1) -join " > "
             $sb.AppendLine("| $($_.OldNode.ToString()) | $($_.NewNode.ToString()) | $($headers) |")
+        }
+        $sb.AppendLine()
+
+        # Changed table nodes
+        $this.ChangedNodes | Where-Object { $_.NewNode.GetType() -eq [TableNode] } | ForEach-Object {
+            $sb.AppendLine($this.RenderTableDiff($_.OldNode, $_.NewNode))
         }
         $sb.AppendLine()
 
@@ -108,6 +114,46 @@ class SoftwareReportComparer {
         }
 
         return $result[0]
+    }
+
+    hidden [String] RenderTableDiff([TableNode] $OldNode, [TableNode] $NewNode) {
+        $tableNode = [TableNode]::new()
+        $tableNode.Title = $NewNode.Title
+        $tableNode.Rows = @()
+
+        # Add Headers
+        $tableNode.Rows.Add($NewNode.Rows[0])
+        $tableNode.Rows.Add($NewNode.Rows[1])
+
+        # Find diffs
+        $changedRows = @()
+        for ($rowIndex = 0; $rowIndex -lt $OldNode.Rows.Count; $rowIndex++) {
+            $row = $OldNode.Rows[$rowIndex]
+            if ($row -notin $NewNode.Rows) {
+                $changedRows += @{ Row = $row; index = $rowIndex; Added = $false }
+            }
+        }
+        for ($rowIndex = 0; $rowIndex -lt $NewNode.Rows.Count; $rowIndex++) {
+            $row = $NewNode.Rows[$rowIndex]
+            if ($row -notin $OldNode.Rows) {
+                $changedRows += @{ Row = $row; index = $rowIndex; Added = $true }
+            }
+        }
+
+        # throw $($changedRows | Sort-Object -Property Index, Row | ConvertTo-Json)
+
+        $changedRows | Sort-Object -Property Index, Row | ForEach-Object {
+            $row = $_.Added ? $_.Row : $this.StrikeTableRow($_.Row)
+            $tableNode.Rows.Add($row)
+        }
+
+        return $tableNode.ToMarkdown(4)
+    }
+
+    hidden [String] StrikeTableRow([String] $Row) {
+        $cells = $Row.Split("|")
+        $strikedCells = $cells | ForEach-Object { "~~$($_)~~"}
+        return [String]::Join("|", $strikedCells)
     }
 }
 

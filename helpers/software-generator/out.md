@@ -23,9 +23,11 @@
 ### Java
 | Version   | Vendor          | Environment Variables |
 | --------- | --------------- | --------------------- |
-| 8.0.345+1 | Eclipse Temurin | JAVA_HOME_8_X64       |
+| 7.0.0     | Eclipse Temurin | JAVA_HOME_7_X64       |
+| 8.0.346+1 | Eclipse Temurin | JAVA_HOME_8_X64       |
 | 11.0.16+1 | Eclipse Temurin | JAVA_HOME_11_X64      |
-| 17.0.4+1  | Eclipse Temurin | JAVA_HOME_17_X64      |
+| 17.0.6+1  | Eclipse Temurin | JAVA_HOME_17_X64      |
+| 19.0.2    | Eclipse Temurin | JAVA_HOME_19_X64      |
 
 ### MySQL
 - MySQL 8.0.31-0ubuntu0.20.04.1

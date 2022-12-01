@@ -212,17 +212,14 @@
                 "Version": "1.22.19"
               },
               {
-                "NodeType": "HeaderNode",
+                "NodeType": "TableNode",
                 "Title": "Environment variables",
-                "Children": {
-                  "NodeType": "TableNode",
-                  "Rows": [
-                    "Name|Value",
-                    "-|-",
-                    "CONDA|/usr/local/miniconda",
-                    "VCPKG_INSTALLATION_ROOT|/usr/local/share/vcpkg"
-                  ]
-                }
+                "Rows": [
+                  "Name|Value",
+                  "-|-",
+                  "CONDA|/usr/local/miniconda",
+                  "VCPKG_INSTALLATION_ROOT|/usr/local/share/vcpkg"
+                ]
               }
             ]
           },
@@ -575,46 +572,37 @@
                 "Version": "4.5.0"
               },
               {
-                "NodeType": "HeaderNode",
+                "NodeType": "TableNode",
                 "Title": "Environment variables",
-                "Children": {
-                  "NodeType": "TableNode",
-                  "Rows": [
-                    "Name|Value",
-                    "-|-",
-                    "CHROMEWEBDRIVER|/usr/local/Caskroom/chromedriver/107.0.5304.62",
-                    "EDGEWEBDRIVER|/usr/local/share/edge_driver",
-                    "GECKOWEBDRIVER|/usr/local/opt/geckodriver/bin"
-                  ]
-                }
+                "Rows": [
+                  "Name|Value",
+                  "-|-",
+                  "CHROMEWEBDRIVER|/usr/local/Caskroom/chromedriver/107.0.5304.62",
+                  "EDGEWEBDRIVER|/usr/local/share/edge_driver",
+                  "GECKOWEBDRIVER|/usr/local/opt/geckodriver/bin"
+                ]
               }
             ]
           },
           {
-            "NodeType": "HeaderNode",
+            "NodeType": "TableNode",
             "Title": "Java",
-            "Children": {
-              "NodeType": "TableNode",
-              "Rows": [
-                "Version|Vendor|Environment Variable",
-                "-|-|-",
-                "8.0.345+1 (default)|Eclipse Temurin|JAVA_HOME_8_X64",
-                "11.0.17+8|Eclipse Temurin|JAVA_HOME_11_X64",
-                "17.0.5+8|Eclipse Temurin|JAVA_HOME_17_X64"
-              ]
-            }
+            "Rows": [
+              "Version|Vendor|Environment Variable",
+              "-|-|-",
+              "8.0.345+1 (default)|Eclipse Temurin|JAVA_HOME_8_X64",
+              "11.0.17+8|Eclipse Temurin|JAVA_HOME_11_X64",
+              "17.0.5+8|Eclipse Temurin|JAVA_HOME_17_X64"
+            ]
           },
           {
-            "NodeType": "HeaderNode",
+            "NodeType": "TableNode",
             "Title": "GraalVM",
-            "Children": {
-              "NodeType": "TableNode",
-              "Rows": [
-                "Version|Environment variables",
-                "-|-",
-                "CE 22.3.0|GRAALVM_11_ROOT"
-              ]
-            }
+            "Rows": [
+              "Version|Environment variables",
+              "-|-",
+              "CE 22.3.0|GRAALVM_11_ROOT"
+            ]
           },
           {
             "NodeType": "HeaderNode",
@@ -664,18 +652,15 @@
                 ]
               },
               {
-                "NodeType": "HeaderNode",
+                "NodeType": "TableNode",
                 "Title": "Go",
-                "Children": {
-                  "NodeType": "TableNode",
-                  "Rows": [
-                    "Version|Architecture|Environment Variable",
-                    "-|-|-",
-                    "1.17.13 (Default)|x64|GOROOT_1_17_X64",
-                    "1.18.8|x64|GOROOT_1_18_X64",
-                    "1.19.3|x64|GOROOT_1_19_X64"
-                  ]
-                }
+                "Rows": [
+                  "Version|Architecture|Environment Variable",
+                  "-|-|-",
+                  "1.17.13 (Default)|x64|GOROOT_1_17_X64",
+                  "1.18.8|x64|GOROOT_1_18_X64",
+                  "1.19.3|x64|GOROOT_1_19_X64"
+                ]
               }
             ]
           },
@@ -751,89 +736,75 @@
                 "Version": "7.2.7"
               },
               {
-                "NodeType": "HeaderNode",
+                "NodeType": "TableNode",
                 "Title": "PowerShell Modules",
-                "Children": {
-                  "NodeType": "TableNode",
-                  "Rows": [
-                    "Module|Version",
-                    "-|-",
-                    "Az|9.1.0",
-                    "MarkdownPS|1.9",
-                    "Pester|5.3.3",
-                    "PSScriptAnalyzer|1.21.0"
-                  ]
-                }
+                "Rows": [
+                  "Module|Version",
+                  "-|-",
+                  "Az|9.1.0",
+                  "MarkdownPS|1.9",
+                  "Pester|5.3.3",
+                  "PSScriptAnalyzer|1.21.0"
+                ]
               }
             ]
           },
           {
-            "NodeType": "HeaderNode",
+            "NodeType": "TableNode",
             "Title": "Web Servers",
-            "Children": {
-              "NodeType": "TableNode",
-              "Rows": [
-                "Name|Version|ConfigFile|ServiceStatus|ListenPort",
-                "-|-|-|-|-",
-                "httpd|2.4.54_1|/usr/local/etc/httpd/httpd.conf|none|80",
-                "nginx|1.23.2|/usr/local/etc/nginx/nginx.conf|none|80"
-              ]
-            }
+            "Rows": [
+              "Name|Version|ConfigFile|ServiceStatus|ListenPort",
+              "-|-|-|-|-",
+              "httpd|2.4.54_1|/usr/local/etc/httpd/httpd.conf|none|80",
+              "nginx|1.23.2|/usr/local/etc/nginx/nginx.conf|none|80"
+            ]
           },
           {
             "NodeType": "HeaderNode",
             "Title": "Xamarin",
             "Children": [
               {
-                "NodeType": "HeaderNode",
+                "NodeType": "TableNode",
                 "Title": "Visual Studio for Mac",
-                "Children": [
-                  {
-                    "NodeType": "TableNode",
-                    "Rows": [
-                      "Version|Build|Path",
-                      "-|-|-",
-                      "2019|8.10.25.2|/Applications/Visual Studio 2019.app",
-                      "2022 (default)|17.3.8.5|/Applications/Visual Studio.app"
-                    ]
-                  },
-                  {
-                    "NodeType": "HeaderNode",
-                    "Title": "Notes",
-                    "Children": {
-                      "NodeType": "NoteNode",
-                      "Content": "To use Visual Studio 2019 by default rename the app:\r\nmv \"/Applications/Visual Studio.app\" \"/Applications/Visual Studio 2022.app\"\r\nmv \"/Applications/Visual Studio 2019.app\" \"/Applications/Visual Studio.app\""
-                    }
-                  }
+                "Rows": [
+                  "Version|Build|Path",
+                  "-|-|-",
+                  "2019|8.10.25.2|/Applications/Visual Studio 2019.app",
+                  "2022 (default)|17.3.8.5|/Applications/Visual Studio.app"
                 ]
               },
               {
                 "NodeType": "HeaderNode",
-                "Title": "Xamarin bundles",
+                "Title": "Notes",
                 "Children": {
-                  "NodeType": "TableNode",
-                  "Rows": [
-                    "symlink|Xamarin.Mono|Xamarin.iOS|Xamarin.Mac|Xamarin.Android",
-                    "-|-|-|-|-",
-                    "6_12_16|6.12|15.8|8.8|12.2",
-                    "6_12_15|6.12|15.8|8.8|12.1",
-                    "6_12_14|6.12|15.8|8.8|12.0",
-                    "6_12_13|6.12|15.6|8.6|12.0",
-                    "6_12_12 (default)|6.12|15.4|8.4|12.0",
-                    "6_12_11|6.12|15.2|8.2|12.0",
-                    "6_12_10|6.12|15.0|7.14|11.3",
-                    "6_12_9|6.12|14.20|7.14|11.3",
-                    "6_12_8|6.12|14.16|7.10|11.2",
-                    "6_12_7|6.12|14.14|7.8|11.2",
-                    "6_12_6|6.12|14.10|7.4|11.1",
-                    "6_12_5|6.12|14.8|7.2|11.1",
-                    "6_12_4|6.12|14.6|7.0|11.1",
-                    "6_12_3|6.12|14.4|6.22|11.1",
-                    "6_12_2|6.12|14.2|6.20|11.0",
-                    "6_12_1|6.12|14.0|6.20|11.0",
-                    "6_12_0|6.12|13.20|6.20|11.0"
-                  ]
+                  "NodeType": "NoteNode",
+                  "Content": "To use Visual Studio 2019 by default rename the app:\r\nmv \"/Applications/Visual Studio.app\" \"/Applications/Visual Studio 2022.app\"\r\nmv \"/Applications/Visual Studio 2019.app\" \"/Applications/Visual Studio.app\""
                 }
+              }
+              {
+                "NodeType": "TableNode",
+                "Title": "Xamarin bundles",
+                "Rows": [
+                  "symlink|Xamarin.Mono|Xamarin.iOS|Xamarin.Mac|Xamarin.Android",
+                  "-|-|-|-|-",
+                  "6_12_16|6.12|15.8|8.8|12.2",
+                  "6_12_15|6.12|15.8|8.8|12.1",
+                  "6_12_14|6.12|15.8|8.8|12.0",
+                  "6_12_13|6.12|15.6|8.6|12.0",
+                  "6_12_12 (default)|6.12|15.4|8.4|12.0",
+                  "6_12_11|6.12|15.2|8.2|12.0",
+                  "6_12_10|6.12|15.0|7.14|11.3",
+                  "6_12_9|6.12|14.20|7.14|11.3",
+                  "6_12_8|6.12|14.16|7.10|11.2",
+                  "6_12_7|6.12|14.14|7.8|11.2",
+                  "6_12_6|6.12|14.10|7.4|11.1",
+                  "6_12_5|6.12|14.8|7.2|11.1",
+                  "6_12_4|6.12|14.6|7.0|11.1",
+                  "6_12_3|6.12|14.4|6.22|11.1",
+                  "6_12_2|6.12|14.2|6.20|11.0",
+                  "6_12_1|6.12|14.0|6.20|11.0",
+                  "6_12_0|6.12|13.20|6.20|11.0"
+                ]
               },
               {
                 "NodeType": "HeaderNode",
@@ -848,10 +819,11 @@
           },
           {
             "NodeType": "HeaderNode",
-            "Title": "Xcode",
+            
             "Children": [
               {
                 "NodeType": "TableNode",
+                "Title": "Xcode",
                 "Rows": [
                   "Version|Build|Path",
                   "-|-|-",

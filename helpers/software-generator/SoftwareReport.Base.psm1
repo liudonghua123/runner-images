@@ -222,11 +222,13 @@ class ToolVersionsNode: BaseNode {
 
 # It is a node type to describe tables
 class TableNode: BaseNode {
+    [String] $Title
     [System.Collections.ArrayList] $Rows
 
     TableNode() {}
 
-    TableNode([Array] $Table) {
+    TableNode([String] $Title, [Array] $Table) {
+        $this.Title = $Title
         # It is easier to store the table as rendered lines because we will simplify finding differences in rows later
         # So we render table right now
 
@@ -258,6 +260,8 @@ class TableNode: BaseNode {
         }
 
         $sb = [System.Text.StringBuilder]::new()
+        $sb.AppendLine()
+        $sb.AppendLine("$("#" * $level) $($this.Title)")
         $this.Rows | ForEach-Object {
             $sb.Append("|")
             $row = $_.Split("|")
@@ -272,15 +276,21 @@ class TableNode: BaseNode {
         return $sb.ToString().TrimEnd()
     }
 
+    [String] ToString() {
+        return "Test"
+    }
+
     [PSCustomObject] ToJsonObject() {
         return [PSCustomObject]@{
             NodeType = $this.GetType().Name
+            Title = $this.Title
             Rows = $this.Rows
         }
     }
 
     static [TableNode] FromJsonObject($jsonObj) {
         $node = [TableNode]::new()
+        $node.Title = $jsonObj.Title
         $node.Rows = $jsonObj.Rows
         return $node
     }
@@ -290,11 +300,25 @@ class TableNode: BaseNode {
             return $false
         }
 
-        return $true
+        return $this.Title -eq $OtherNode.Title
     }
 
     [Boolean] IsIdenticalTo([BaseNode] $OtherNode) {
-        return $this.IsSimilarTo($OtherNode)
+        if (-not $this.IsSimilarTo($OtherNode)) {
+            return $false
+        }
+
+        if ($this.Rows.Count -ne $OtherNode.Rows.Count) {
+            return $false
+        }
+
+        for ($rowIndex = 0; $rowIndex -lt $this.Rows.Count; $rowIndex++) {
+            if ($this.Rows[$rowIndex] -ne $OtherNode.Rows[$rowIndex]) {
+                return $false
+            }
+        }
+
+        return $true
     }
 }
 
