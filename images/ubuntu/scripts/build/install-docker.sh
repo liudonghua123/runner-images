@@ -57,8 +57,8 @@ EOF
 systemd-tmpfiles --create /etc/tmpfiles.d/docker.conf
 
 # Enable docker.service
-systemctl is-active --quiet docker.service || systemctl start docker.service
-systemctl is-enabled --quiet docker.service || systemctl enable docker.service
+# systemctl is-active --quiet docker.service || systemctl start docker.service
+# systemctl is-enabled --quiet docker.service || systemctl enable docker.service
 
 # Docker daemon takes time to come up after installing
 sleep 10

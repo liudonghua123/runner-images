@@ -1,10 +1,25 @@
 packer {
   required_plugins {
     azure = {
-      source  = "github.com/hashicorp/azure"
-      version = "1.4.5"
+      source  = "github.com/hashicorp/docker"
+      version = ">= 1.0.9"
     }
   }
+}
+
+variable "base_image_tag" {
+  type    = string
+  default = "latest"
+}
+
+variable "artifact_image_repository" {
+  type    = string
+  default = "liudonghua123/actions-runner"
+}
+
+variable "artifact_image_tag" {
+  type    = string
+  default = "ubuntu-latest"
 }
 
 locals {
@@ -175,8 +190,26 @@ source "azure-arm" "build_image" {
   }
 }
 
+source "docker" "ubuntu" {
+  image  = "ghcr.io/actions/actions-runner:${var.base_image_tag}"
+  commit = true
+  fix_upload_owner = true
+  run_command = ["-d", "-i", "-t", "--", "{{.Image}}"]
+  changes = [
+  	"ENV PATH /home/runner/.cargo/bin:$PATH",
+    "CMD []",
+    "ENTRYPOINT []",
+  ]
+}
+
 build {
-  sources = ["source.azure-arm.build_image"]
+  name = "ubuntu-22.04-actions"
+  sources = ["source.docker.ubuntu"]
+
+  post-processor "docker-tag" {
+    repository = "${var.artifact_image_repository}"
+    tags = ["${var.artifact_image_tag}", "latest"]
+  }
 
   provisioner "shell" {
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
@@ -213,6 +246,7 @@ build {
     source      = "${path.root}/../scripts/build"
   }
 
+  /*
   provisioner "file" {
     destination = "${var.image_folder}"
     sources     = [
@@ -226,12 +260,14 @@ build {
     destination = "${var.image_folder}/docs-gen/"
     source      = "${path.root}/../../../helpers/software-report-base"
   }
+  */
 
   provisioner "file" {
     destination = "${var.installer_script_folder}/toolset.json"
     source      = "${path.root}/../toolsets/toolset-2204.json"
   }
 
+  /*
   provisioner "shell" {
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     inline          = [
@@ -239,6 +275,7 @@ build {
       "mv ${var.image_folder}/post-gen ${var.image_folder}/post-generation"
     ]
   }
+  */
 
   provisioner "shell" {
     environment_vars = ["IMAGE_VERSION=${var.image_version}", "IMAGEDATA_FILE=${var.imagedata_file}"]
@@ -264,11 +301,13 @@ build {
     scripts          = ["${path.root}/../scripts/build/install-powershell.sh"]
   }
 
+  /*
   provisioner "shell" {
     environment_vars = ["HELPER_SCRIPTS=${var.helper_script_folder}", "INSTALLER_SCRIPT_FOLDER=${var.installer_script_folder}"]
     execute_command  = "sudo sh -c '{{ .Vars }} pwsh -f {{ .Path }}'"
     scripts          = ["${path.root}/../scripts/build/Install-PowerShellModules.ps1", "${path.root}/../scripts/build/Install-PowerShellAzModules.ps1"]
   }
+  */
 
   provisioner "shell" {
     environment_vars = ["HELPER_SCRIPTS=${var.helper_script_folder}", "INSTALLER_SCRIPT_FOLDER=${var.installer_script_folder}", "DEBIAN_FRONTEND=noninteractive"]
@@ -367,11 +406,13 @@ build {
     scripts          = ["${path.root}/../scripts/build/configure-snap.sh"]
   }
 
+  /*
   provisioner "shell" {
     execute_command   = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     expect_disconnect = true
     inline            = ["echo 'Reboot VM'", "sudo reboot"]
   }
+  */
 
   provisioner "shell" {
     execute_command     = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
@@ -380,6 +421,7 @@ build {
     start_retry_timeout = "10m"
   }
 
+  /*
   provisioner "shell" {
     environment_vars = ["IMAGE_VERSION=${var.image_version}", "INSTALLER_SCRIPT_FOLDER=${var.installer_script_folder}"]
     inline           = ["pwsh -File ${var.image_folder}/SoftwareReport/Generate-SoftwareReport.ps1 -OutputDirectory ${var.image_folder}", "pwsh -File ${var.image_folder}/tests/RunAll-Tests.ps1 -OutputDirectory ${var.image_folder}"]
@@ -396,13 +438,14 @@ build {
     direction   = "download"
     source      = "${var.image_folder}/software-report.json"
   }
-
+  */
   provisioner "shell" {
     environment_vars = ["HELPER_SCRIPT_FOLDER=${var.helper_script_folder}", "INSTALLER_SCRIPT_FOLDER=${var.installer_script_folder}", "IMAGE_FOLDER=${var.image_folder}"]
     execute_command  = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     scripts          = ["${path.root}/../scripts/build/configure-system.sh"]
   }
 
+  /*
   provisioner "file" {
     destination = "/tmp/"
     source      = "${path.root}/../assets/ubuntu2204.conf"
@@ -417,5 +460,6 @@ build {
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     inline          = ["sleep 30", "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"]
   }
+  */
 
 }

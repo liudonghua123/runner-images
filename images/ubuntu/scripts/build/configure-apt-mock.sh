@@ -5,6 +5,9 @@
 ##         Cleaned up during cleanup.sh.
 ################################################################################
 
+# fix: root is not in the sudoers file.
+echo "root    ALL=(ALL:ALL) ALL" >> /etc/sudoers
+
 prefix=/usr/local/bin
 
 for real_tool in /usr/bin/apt /usr/bin/apt-get /usr/bin/apt-key; do
